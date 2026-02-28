@@ -28,10 +28,10 @@ Hosted Prototype:
 ## monday.com Boards Used
 
 Deals Board:  
-<DEALS_BOARD_LINK>
+[<DEALS_BOARD_LINK>](https://rahulnimbai018s-team.monday.com/boards/5026905032)
 
 Work Orders Board:  
-<WORK_ORDERS_BOARD_LINK>
+[<WORK_ORDERS_BOARD_LINK>](https://rahulnimbai018s-team.monday.com/boards/5026905024)
 
 ---
 
