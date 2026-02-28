@@ -13,14 +13,11 @@ def revenue_snapshot(df):
     total_deals = int(len(df))
     avg_value = total_value / total_deals if total_deals else 0
 
-    return {
-        "summary": f"Overall pipeline value is ₹{total_value:,.2f} across {total_deals} deals. Average deal value is ₹{avg_value:,.2f}.",
-        "data": {
-            "Total Pipeline Value": total_value,
-            "Total Deals": total_deals,
-            "Average Deal Value": avg_value
-        }
-    }
+    return (
+        f"The current pipeline stands at ₹{total_value:,.2f} across "
+        f"{total_deals} deals, with an average deal size of "
+        f"₹{avg_value:,.2f}. This represents your total revenue exposure."
+    )
 
 
 # -----------------------------
@@ -33,10 +30,10 @@ def pipeline_health(df):
 
     most_common = max(distribution, key=distribution.get)
 
-    return {
-        "summary": f"Pipeline is primarily in '{most_common}' status. Distribution across statuses shown below.",
-        "data": distribution
-    }
+    return (
+        f"The pipeline is primarily concentrated in '{most_common}' status. "
+        f"Status distribution is as follows: {distribution}."
+    )
 
 
 # -----------------------------
@@ -57,12 +54,16 @@ def sector_performance(df):
         .to_dict()
     )
 
-    top_sector = next(iter(result)) if result else "N/A"
+    if not result:
+        return "No sector-level revenue data available."
 
-    return {
-        "summary": f"Top performing sector is '{top_sector}'. Detailed sector-wise revenue below.",
-        "data": result
-    }
+    top_sector = next(iter(result))
+    top_value = result[top_sector]
+
+    return (
+        f"The '{top_sector}' sector currently leads with ₹{top_value:,.2f} "
+        f"in total value. Full sector breakdown: {result}."
+    )
 
 
 # -----------------------------
@@ -73,22 +74,17 @@ def receivables_analysis(df):
     recv_cols = [c for c in df.columns if "receivable" in c.lower()]
 
     if not recv_cols:
-        return {
-            "summary": "No receivable data available.",
-            "data": {}
-        }
+        return "Receivable data is not available in the dataset."
 
     values = force_numeric(df[recv_cols[0]])
     total = float(values.sum())
     avg = float(values.mean())
 
-    return {
-        "summary": f"Total outstanding receivables are ₹{total:,.2f}. Average receivable per deal is ₹{avg:,.2f}.",
-        "data": {
-            "Outstanding Receivables": total,
-            "Average Receivable": avg
-        }
-    }
+    return (
+        f"Outstanding receivables total ₹{total:,.2f}, with an average "
+        f"receivable per deal of ₹{avg:,.2f}. Monitoring collections "
+        f"is advisable to maintain healthy cash flow."
+    )
 
 
 # -----------------------------
@@ -100,23 +96,17 @@ def billing_collection_gap(df):
     collected_cols = [c for c in df.columns if "collected" in c.lower()]
 
     if not billed_cols or not collected_cols:
-        return {
-            "summary": "Billing or collection data missing.",
-            "data": {}
-        }
+        return "Billing or collection data is incomplete."
 
     billed = force_numeric(df[billed_cols[0]]).sum()
     collected = force_numeric(df[collected_cols[0]]).sum()
     gap = float(billed - collected)
 
-    return {
-        "summary": f"Total billed amount is ₹{billed:,.2f}, collected amount is ₹{collected:,.2f}. Collection gap is ₹{gap:,.2f}.",
-        "data": {
-            "Total Billed": float(billed),
-            "Total Collected": float(collected),
-            "Collection Gap": gap
-        }
-    }
+    return (
+        f"Total billed revenue stands at ₹{billed:,.2f}, while "
+        f"collected revenue is ₹{collected:,.2f}, leaving a "
+        f"collection gap of ₹{gap:,.2f}."
+    )
 
 
 # -----------------------------
@@ -128,11 +118,8 @@ def data_quality_report(df):
     cols = int(df.shape[1])
     missing = int(df.isna().sum().sum())
 
-    return {
-        "summary": f"Dataset contains {rows} rows and {cols} columns with {missing} missing values.",
-        "data": {
-            "Rows": rows,
-            "Columns": cols,
-            "Missing Values": missing
-        }
-    }
+    return (
+        f"The dataset contains {rows} records across {cols} columns, "
+        f"with {missing} missing values identified. Data completeness "
+        f"should be reviewed before making high-stakes decisions."
+    )
