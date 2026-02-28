@@ -21,7 +21,7 @@ Users can ask natural language questions such as:
 ## Live Demo
 
 Hosted Prototype:  
-<RENDER_APP_URL>
+[<RENDER_APP_URL>](https://bussiness-intelligence-agent.onrender.com/)
 
 ---
 
