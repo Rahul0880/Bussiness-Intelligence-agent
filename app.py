@@ -18,7 +18,7 @@ if query:
         st.success(result["summary"])
 
     if "data" in result:
-        st.json(result["data"])
+        st.write(result["data"])
 
     st.subheader("Agent Trace")
     for step in trace:
