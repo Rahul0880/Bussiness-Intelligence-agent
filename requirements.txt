@@ -1,0 +1,6 @@
+# Monday BI Agent Dependencies
+streamlit
+pandas
+requests
+python-dotenv
+openai
