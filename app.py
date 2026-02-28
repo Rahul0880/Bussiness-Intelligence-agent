@@ -7,7 +7,7 @@ st.title("📊 Founder's BI Agent")
 
 query = st.text_input(
     "Ask a question about your business data:",
-    placeholder="How is our pipeline looking for the energy sector?"
+    placeholder=""
 )
 
 if query:
